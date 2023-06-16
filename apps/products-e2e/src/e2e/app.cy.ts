@@ -19,3 +19,4 @@ describe('products', () => {
     cy.url().should('include', '/product/1');
   });
 });
+

@@ -5,8 +5,18 @@
   "projectType": "application",
   "generators": {},
   "targets": {
+    "foo-write": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "echo $RANDOM >> src/foo.txt"
+        ],
+        "cwd": "{projectRoot}"
+      }
+    },
     "build": {
       "executor": "@nx/webpack:webpack",
+      "dependsOn": ["foo-write"],
       "options": {
         "outputPath": "dist/apps/cart",
         "webpackConfig": "apps/cart/webpack.config.js",
@@ -15,6 +25,7 @@
         "polyfills": "apps/cart/src/polyfills.ts",
         "tsConfig": "apps/cart/tsconfig.app.json",
         "assets": [
+          "apps/cart/src/foo.txt",
           "apps/cart/src/_redirects",
           {
             "input": "libs/shared/assets/src/assets",
